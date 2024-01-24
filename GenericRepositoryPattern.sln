@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepositoryPattern", "GenericRepositoryPattern\GenericRepositoryPattern.csproj", "{8D1F4CB0-492F-46E7-ADBA-C9A46CE70808}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCollectorLibrary", "DataCollectorLibrary\DataCollectorLibrary.csproj", "{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8D1F4CB0-492F-46E7-ADBA-C9A46CE70808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D1F4CB0-492F-46E7-ADBA-C9A46CE70808}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D1F4CB0-492F-46E7-ADBA-C9A46CE70808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
