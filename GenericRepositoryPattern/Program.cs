@@ -1,5 +1,11 @@
-﻿using System;
+﻿using DataCollectorLibrary.Enums;
+using DataCollectorLibrary.Persistences.Context;
+using DataCollectorLibrary.Persistences.Entity;
+using DataCollectorLibrary.Persistences.Repository.Employee;
+using Microsoft.DotNet.Cli.Utils;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,64 +17,73 @@ namespace GenericRepositoryPattern
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
-            string imagePath = "C:\\Users\\DELL\\Desktop\\Test\\Test.txt";
-            string encryptedImagePath = "C:\\Users\\DELL\\Desktop\\Test\\Encrypt\\encryptedImage.enc";
-            string decryptedImagePath = "C:\\Users\\DELL\\Desktop\\Test\\Decrypt\\decryptedImage.txt";
 
-            string key = "Aitech$32123r2322344232352524234"; // Replace with a strong and secure key
-            EncryptImage(imagePath, encryptedImagePath, key);
-            DecryptImage(encryptedImagePath, decryptedImagePath, key);
+            //DbMigrator helps in updating the database to the latest migrations
+            DbMigrator migrator = new DbMigrator(new DataCollectorLibrary.Migrations.Employee.Configuration());
 
-            Console.WriteLine("Image encrypted and decrypted successfully.");
+            if (migrator.GetPendingMigrations().Any())
+                migrator.Update();
+
+            //Initializes the database
+            IEmployeeUnitOfWork _employeeUnitOfWork = new EmployeeUnitOfWork(new EmployeeContext());
+
+            Employee employee = new Employee()
+            {
+                FirstName = "Demo",
+                LastName = "User",
+                Gender = Gender.Male,
+                DOB = ParseDateString("30-11-1997"),
+                Email = "DemoUser@gmail.com",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedBy = "Admin",
+                CreatedDate = DateTime.Now,
+                LastModifiedBy = "Admin",
+                LastModifiedDate = DateTime.Now,
+            };
+
+            //Adds the data to the database
+            _employeeUnitOfWork.Employee.Add(employee);
+            _employeeUnitOfWork.Complete();
+
+            Console.WriteLine("Data added to the database successfully!\n");
+
+            IEnumerable<Employee> employeeData = _employeeUnitOfWork.Employee.GetAll();
+            Console.WriteLine("All the employee data:\n**************************\n");
+            foreach (var item in employeeData)
+            {
+                Console.WriteLine($"Name: {item.FirstName} {item.LastName}");
+                Console.WriteLine($"Age: {item.Age}");
+                Console.WriteLine($"Email: {item.Email}");
+                Console.WriteLine($"Active: {item.IsActive}");
+                Console.WriteLine($"**************************\n");
+            }
+
+            IEnumerable<Employee> activeEmployeeData = _employeeUnitOfWork.Employee.GetAll(x => x.IsActive);
+            Console.WriteLine("Active employee data:\n**************************\n");
+            foreach (var item in activeEmployeeData)
+            {
+                Console.WriteLine($"Name: {item.FirstName} {item.LastName}");
+                Console.WriteLine($"Age: {item.Age}");
+                Console.WriteLine($"Email: {item.Email}");
+                Console.WriteLine($"**************************\n");
+            }
+
+            Console.ReadLine();
         }
 
-        static void EncryptImage(string inputPath, string outputPath, string key)
+        //DateConversion function
+        static DateTime ParseDateString(string input)
         {
-            using (Aes aesAlg = Aes.Create())
+            if (DateTime.TryParseExact(input, "dd-MM-yyyy", null, DateTimeStyles.None, out DateTime parsedDate))
             {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-
-                byte[] staticIV = new byte[aesAlg.IV.Length];
-                aesAlg.IV.CopyTo(staticIV, 0);
-
-                using (FileStream inputFile = new FileStream(inputPath, FileMode.Open))
-                using (FileStream outputFile = new FileStream(outputPath, FileMode.Create))
-                {
-                    outputFile.Write(aesAlg.IV, 0, aesAlg.IV.Length);
-
-                    using (CryptoStream cryptoStream = new CryptoStream(outputFile, aesAlg.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        inputFile.CopyTo(cryptoStream);
-                    }
-                }
+                return parsedDate;
             }
-        }
 
-        static void DecryptImage(string inputPath, string outputPath, string key)
-        {
-            using (Aes aesAlg = Aes.Create())
-            {
-
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-
-                byte[] staticIV = new byte[aesAlg.IV.Length];
-                aesAlg.IV.CopyTo(staticIV, 0);
-
-                using (FileStream inputFile = new FileStream(inputPath, FileMode.Open))
-                {
-                    byte[] iv = new byte[aesAlg.IV.Length];
-                    inputFile.Read(iv, 0, iv.Length);
-                    aesAlg.IV = iv;
-
-                    using (FileStream outputFile = new FileStream(outputPath, FileMode.Create))
-                    using (CryptoStream cryptoStream = new CryptoStream(inputFile, aesAlg.CreateDecryptor(), CryptoStreamMode.Read))
-                    {
-                        cryptoStream.CopyTo(outputFile);
-                    }
-                }
-            }
+            return DateTime.MinValue;
         }
     }
 }

@@ -220,6 +220,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCollectorLibrary\DataCollectorLibrary.csproj">
+      <Project>{4E8DC7A7-EE06-45E3-9CD8-2A16DFBD9F05}</Project>
+      <Name>DataCollectorLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
