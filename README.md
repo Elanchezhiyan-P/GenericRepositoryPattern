@@ -8,7 +8,7 @@ The repository pattern is intended to create an Abstraction layer between the Da
 ![EmptyDb](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/7ab1f3d9-cf5b-476f-840b-19d3e1e47145)
 
 # Debugged data
-![Data](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/77a0a9ea-1de6-46a0-a01f-3dde6e19ccd0)
+![image](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/fa6484e2-b70a-47b6-adba-aeafb15c1c21)
 
 # Data in the Database
 ![DbWithData](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/149af9ef-ef69-4603-8220-e3f966089634)
