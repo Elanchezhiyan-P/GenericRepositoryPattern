@@ -1,4 +1,4 @@
-# GenericRepositoryPattern
+# Generic Repository Pattern
  The Generic repository pattern is commonly used for data access in C# applications. It provides a generic way to interact with different entities in a database. In this project, I have implemented a separate class library project where I have used the **"Code First"** development approach and created a database from a model, using migration.
 
 # Repository pattern
