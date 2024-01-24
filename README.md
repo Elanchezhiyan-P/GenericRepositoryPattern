@@ -3,3 +3,15 @@
 
 # Repository pattern
 The repository pattern is intended to create an Abstraction layer between the Data Access layer and the Business Logic layer of an Application. It is a data access pattern that prompts a more loosely coupled approach to data access. We create a generic repository, which queries the data source for the data, maps the data from the data source to a business entity, and persists changes in the business entity to the data source.
+
+# Empty Database
+![EmptyDb](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/7ab1f3d9-cf5b-476f-840b-19d3e1e47145)
+
+# Debugged data
+![Data](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/77a0a9ea-1de6-46a0-a01f-3dde6e19ccd0)
+
+# Data in the Database
+![DbWithData](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/149af9ef-ef69-4603-8220-e3f966089634)
+
+# Console App results
+![ConsoleResults](https://github.com/Elanchezhiyan-P/GenericRepositoryPattern/assets/29861348/fea5ed1a-9c05-4ae6-b87c-c9ca9b919d60)
